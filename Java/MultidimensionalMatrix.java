@@ -14,7 +14,7 @@ public class MultidimensionalMatrix <T>{
 	/**
 	 * The linear matrix
 	 */
-	private final HashMap<Integer,T> matrix;
+	private final HashMap<Long,T> matrix;
 
 	/**
 	 * The sizes of each axis or dimension. 
@@ -37,7 +37,7 @@ public class MultidimensionalMatrix <T>{
 		}
 		this.sizes = sizes;
 		//matrix = new T[total];
-		matrix = new HashMap<Integer,T>(total);
+		matrix = new HashMap<Long,T>(total);
 	
 	}
 	
@@ -47,9 +47,9 @@ public class MultidimensionalMatrix <T>{
 	 * @return
 	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
 	 */
-	private int getLinearId(final int[] position){
+	private long getLinearId(final int[] position){
 		int p = sizes.length - 1;
-		int id = position[p];
+		long id = position[p];
 		while (p - 1 >= 0){
 			id = id * sizes[p - 1] + position[p - 1];
 			p--;
@@ -83,7 +83,7 @@ public class MultidimensionalMatrix <T>{
 	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
 	 */
 	public void set(final int[] position, final T object){
-		final int pos = getLinearId(position);
+		final long pos = getLinearId(position);
 		matrix.remove(pos);
 		matrix.put(pos, object);
 	}
@@ -96,7 +96,7 @@ public class MultidimensionalMatrix <T>{
 	 */
 	public int getHowManyEquals(final T object){
 		int counter = 0;
-		for (int key : matrix.keySet()){
+		for (long key : matrix.keySet()){
 			if (matrix.get(key).equals(object)) counter++;
 		}
 		return counter;
