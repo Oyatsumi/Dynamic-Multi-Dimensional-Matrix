@@ -1,10 +1,10 @@
 package linear;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * This is a generic linear multidimensional matrix. This specific implementation converts the multidimensional matrix into a linear array.
- * The downside of this approach is that elements that are not filled in the matrix would consume memory as well as those that are in the matrix.
+ * The downside of this approach is that it takes a significant amount of time to process (read and write) in the matrix. However, it is unlimited, you do not have to worry about memory consumption.
  * 
  * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
  * @param <T> - the type of the objects in the matrix
@@ -14,7 +14,7 @@ public class MultidimensionalMatrix <T>{
 	/**
 	 * The linear matrix
 	 */
-	private final ArrayList<T> matrix;
+	private final HashMap<Integer,T> matrix;
 
 	/**
 	 * The sizes of each axis or dimension. 
@@ -37,7 +37,8 @@ public class MultidimensionalMatrix <T>{
 		}
 		this.sizes = sizes;
 		//matrix = new T[total];
-		matrix = new ArrayList<T>(total);
+		matrix = new HashMap<Integer,T>(total);
+	
 	}
 	
 	/**
@@ -84,7 +85,7 @@ public class MultidimensionalMatrix <T>{
 	public void set(final int[] position, final T object){
 		final int pos = getLinearId(position);
 		matrix.remove(pos);
-		matrix.add(pos, object);
+		matrix.put(pos, object);
 	}
 
 	/**
@@ -95,8 +96,8 @@ public class MultidimensionalMatrix <T>{
 	 */
 	public int getHowManyEquals(final T object){
 		int counter = 0;
-		for (int k=0; k<matrix.size(); k++){
-			if (matrix.get(k).equals(object)) counter++;
+		for (int key : matrix.keySet()){
+			if (matrix.get(key).equals(object)) counter++;
 		}
 		return counter;
 	}

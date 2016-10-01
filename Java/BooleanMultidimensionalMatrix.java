@@ -3,7 +3,7 @@ package linear;
 /**
  * This is a boolean linear multidimensional matrix. This specific implementation converts the multidimensional matrix into a linear array.
  * The downside of this approach is that elements that are not filled in the matrix would consume memory as well as those that are in the matrix.
- * 
+ * IMPORTANT!!! This one is the fastest implementation among (LinkedMultidimensionalMatrix.java and MultidimensionalMatrix.java).
  * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
  */
 public class BooleanMultidimensionalMatrix {
@@ -11,7 +11,8 @@ public class BooleanMultidimensionalMatrix {
 	/**
 	 * The linear matrix
 	 */
-	private final boolean[] matrix; //there is a limit for the size of the array, which is Integer.MAX_VALUE - 5 I think.
+	private final boolean[] matrix; //there is a limit for the size of the array, which is Integer.MAX_VALUE - 5 I think. You can change
+	//the matrix to another type rather than boolean if you want. Just dont forget to change below also, where indicated.
 
 	/**
 	 * The sizes of each axis or dimension. 
@@ -33,7 +34,7 @@ public class BooleanMultidimensionalMatrix {
 			total *= sizes[k];
 		}
 		this.sizes = sizes;
-		matrix = new boolean[total];
+		matrix = new boolean[total]; //change the type here also, if you change the matrix type
 	}
 	
 	/**
@@ -63,7 +64,7 @@ public class BooleanMultidimensionalMatrix {
 	 * @return
 	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
 	 */
-	public boolean get(final int[] position){
+	public boolean get(final int[] position){//change the return type to another type if you want
 		return matrix[getLinearId(position)];
 	}
 	
@@ -77,7 +78,7 @@ public class BooleanMultidimensionalMatrix {
 	 * @param value - the value to be set
 	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
 	 */
-	public void set(final int[] position, final boolean value){
+	public void set(final int[] position, final boolean value){ //change the boolean here also, if you change the matrix to another type
 		matrix[getLinearId(position)] = value;
 	}
 
@@ -98,7 +99,7 @@ public class BooleanMultidimensionalMatrix {
 	 * @return - the amount of values found
 	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
 	 */
-	public int getHowManyEquals(final boolean value){
+	public int getHowManyEquals(final boolean value){ //change the boolean here if you want a matrix of another type
 		int counter = 0;
 		for (int k=0; k<matrix.length; k++){
 			if (matrix[k] == value) counter++;

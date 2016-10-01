@@ -2,7 +2,7 @@ import java.util.TreeMap;
 
 /**
  * This is a generic linked multidimensional matrix. This specific implementation converts the multidimensional matrix into a linked list or linked tree.
- * The downside of this approach it takes a significant amount of time to process (read and write) in the matrix.
+ * The downside of this approach is that it takes a significant amount of time to process (read and write) in the matrix.
  * However, the consumption of memory is reduced because only the elements that are manually set in the matrix consume memory in fact.
  * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
  * @param <T> - the type of the object to be placed in the matrix cells
