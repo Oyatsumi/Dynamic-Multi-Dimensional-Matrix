@@ -37,17 +37,18 @@ public class MultidimensionalMatrix <T>{
 		}
 		this.sizes = sizes;
 		//matrix = new T[total];
+		
 		matrix = new HashMap<Long,T>(total);
 	
 	}
 	
 	/**
-	 * Internal class that converts the coordinate dimensions into a linear index.
+	 * Internal function that converts the coordinate dimensions into a linear index.
 	 * @param position
 	 * @return
 	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
 	 */
-	private long getLinearId(final int[] position){
+	public long getLinearId(final int[] position){
 		int p = sizes.length - 1;
 		long id = position[p];
 		while (p - 1 >= 0){
@@ -55,6 +56,37 @@ public class MultidimensionalMatrix <T>{
 			p--;
 		}
 		return id;
+	}
+	
+	
+	/**
+	 * Given a linear index, this function returns the corresponding n dimensional position.
+	 * @param linearIndex - the linear index
+	 * @return - the corresponding n dimensional position
+	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
+	 */
+	public long[] getPosition(long linearIndex){
+		long[] position = new long[sizes.length];
+		long pSize = 0;
+		for (int k=sizes.length - 1; k>0; k--){
+			pSize = 1;
+			for (int l=0; l<k; l++){
+				pSize *= sizes[l];
+			}
+			position[k] = linearIndex / (pSize);
+			linearIndex -= (position[k] * pSize);
+		}
+		position[0] = linearIndex % sizes[0];
+		return position;
+	}
+	
+	/**
+	 * Returns the total linear size of the matrix (amount of elements).
+	 * @return
+	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
+	 */
+	public int getSize(){
+		return this.matrix.size();
 	}
 
 	

@@ -19,6 +19,11 @@ public class BooleanMultidimensionalMatrix {
 	 */
 	private final int[] sizes;
 	
+	/**
+	 * The linear size of the matrix.
+	 */
+	private final int size;
+	
 	
 	/**
 	 * Constructs the multidimensional matrix.
@@ -34,16 +39,17 @@ public class BooleanMultidimensionalMatrix {
 			total *= sizes[k];
 		}
 		this.sizes = sizes;
+		this.size = total;
 		matrix = new boolean[total]; //change the type here also, if you change the matrix type
 	}
 	
 	/**
-	 * Internal class that converts the coordinate dimensions into a linear index.
+	 * Internal function that converts the coordinate dimensions into a linear index.
 	 * @param position
 	 * @return
 	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
 	 */
-	private int getLinearId(final int[] position){
+	public int getLinearId(final int[] position){
 		int p = sizes.length - 1;
 		int id = position[p];
 		while (p - 1 >= 0){
@@ -51,6 +57,27 @@ public class BooleanMultidimensionalMatrix {
 			p--;
 		}
 		return id;
+	}
+	
+	/**
+	 * Given a linear index, this function returns the corresponding n dimensional position.
+	 * @param linearIndex - the linear index
+	 * @return - the corresponding n dimensional position
+	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
+	 */
+	public long[] getPosition(long linearIndex){
+		long[] position = new long[sizes.length];
+		long pSize = 0;
+		for (int k=sizes.length - 1; k>0; k--){
+			pSize = 1;
+			for (int l=0; l<k; l++){
+				pSize *= sizes[l];
+			}
+			position[k] = linearIndex / (pSize);
+			linearIndex -= (position[k] * pSize);
+		}
+		position[0] = linearIndex % sizes[0];
+		return position;
 	}
 
 	
@@ -67,6 +94,13 @@ public class BooleanMultidimensionalMatrix {
 	public boolean get(final int[] position){//change the return type to another type if you want
 		return matrix[getLinearId(position)];
 	}
+	
+	/**
+	 * Returns the linear size of the matrix (total amount of elements).
+	 * @return
+	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
+	 */
+	public int getSize(){return this.size;}
 	
 	/**
 	 * Sets the value of a matrix cell at a given position or coordinate.

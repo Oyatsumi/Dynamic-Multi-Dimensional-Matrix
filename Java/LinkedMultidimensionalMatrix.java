@@ -65,6 +65,17 @@ public class LinkedMultidimensionalMatrix <T> {
 	}
 	
 	/**
+	 * Returns the total linear size of the matrix.
+	 * @return
+	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
+	 */
+	public int getSize(){
+		size = 0;
+		recursiveVerification(this, null, 0);
+		return size;
+	}
+	
+	/**
 	 * Counts how many objects within the matrix equals the object passed as parameter.
 	 * @param object - the object to look for
 	 * @return - the amount of objects found
@@ -73,6 +84,8 @@ public class LinkedMultidimensionalMatrix <T> {
 	public int getHowManyEquals(final T object){
 		return recursiveVerification(this, object, 0);
 	}
+	
+	private int size = 0;
 	
 	/**
 	 * Internal recursive function to compute the getHowManyEquals function.
@@ -84,9 +97,11 @@ public class LinkedMultidimensionalMatrix <T> {
 	 */
 	private int recursiveVerification(final LinkedMultidimensionalMatrix<T> link, final T object, int howMany){
 		if (link.matrix.size() == 0) {
+			size ++;
 			return link.object.equals(object) ? 1 : 0;
 		}
 		else{
+			size ++;
 			for (final int key : link.matrix.keySet()){
 				howMany += recursiveVerification(link.matrix.get(key), object, 0);
 			}
