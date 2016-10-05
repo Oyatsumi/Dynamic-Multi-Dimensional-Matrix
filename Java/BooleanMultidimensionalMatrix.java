@@ -91,18 +91,18 @@ public class BooleanMultidimensionalMatrix {
 	 * @return - the corresponding n dimensional position
 	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
 	 */
-	public long[] getPosition(long linearIndex){
-		long[] position = new long[sizes.length];
+	public int[] getPosition(long linearIndex){
+		int[] position = new int[sizes.length];
 		long pSize = 0;
 		for (int k=sizes.length - 1; k>0; k--){
 			pSize = 1;
 			for (int l=0; l<k; l++){
 				pSize *= sizes[l];
 			}
-			position[k] = linearIndex / (pSize);
+			position[k] = (int) (linearIndex / (pSize));
 			linearIndex -= (position[k] * pSize);
 		}
-		position[0] = linearIndex % sizes[0];
+		position[0] = (int) (linearIndex % sizes[0]);
 		return position;
 	}
 
