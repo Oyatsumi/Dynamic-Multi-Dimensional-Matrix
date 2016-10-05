@@ -40,13 +40,11 @@ public class TestMatrix {
 											for (int j=0; j <sizes[9]; j++){
 												position[9] = j;
 												
-												if (m.getLinearId(position) != 3628799){
-													try{
-													m.set(position, a + b + c + d + e + f * g + h + i * j + j + 2*g);
-													}catch(Exception o){
-														o.printStackTrace();
-														System.out.println(a + "," + b + "," + c + "," + d + "," + e + "," + f + "," + g + "," + h + "," + i + "," + j);
-													}
+												try{
+												m.set(position, a + b + c + d + e + f * g + h + i * j + j + 2*g);
+												}catch(Exception o){
+													o.printStackTrace();
+													System.out.println(a + "," + b + "," + c + "," + d + "," + e + "," + f + "," + g + "," + h + "," + i + "," + j);
 												}
 											}
 										}
