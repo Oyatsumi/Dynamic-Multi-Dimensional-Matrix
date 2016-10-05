@@ -59,6 +59,32 @@ public class BooleanMultidimensionalMatrix {
 		return id;
 	}
 	
+	private int nIndex = 0;
+	/**
+	 * Returns the next object of the matrix. Synchronous method. When finished the function returns null.
+	 * @return - the next object
+	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
+	 */
+	public synchronized Boolean getNext(){
+		if (nIndex == this.getSize()) {
+			nIndex = 0;
+			return null;
+		}
+		else{
+			nIndex++;
+			return this.matrix[nIndex - 1];
+		}
+	}
+	
+	/**
+	 * Returns the number of dimensions of the matrix.
+	 * @return - the number of dimensions
+	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
+	 */
+	public int getNumOfDimensions(){
+		return this.sizes.length;
+	}
+	
 	/**
 	 * Given a linear index, this function returns the corresponding n dimensional position.
 	 * @param linearIndex - the linear index

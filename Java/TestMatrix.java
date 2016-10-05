@@ -1,4 +1,3 @@
-import linear.BooleanMultidimensionalMatrix;
 import linear.MultidimensionalMatrix;
 
 public class TestMatrix {
@@ -12,7 +11,7 @@ public class TestMatrix {
 		}
 		
 		int[] position = new int[K];
-		long[] position2 = new long[position.length];
+		int[] position2 = new int[position.length];
 		
 		double start = System.nanoTime();
 		
@@ -41,11 +40,13 @@ public class TestMatrix {
 											for (int j=0; j <sizes[9]; j++){
 												position[9] = j;
 												
-												try{
-												m.set(position, a + b + c + d + e + f * g + h + i * j + j + 2*g);
-												}catch(Exception o){
-													o.printStackTrace();
-													System.out.println(a + "," + b + "," + c + "," + d + "," + e + "," + f + "," + g + "," + h + "," + i + "," + j);
+												if (m.getLinearId(position) != 3628799){
+													try{
+													m.set(position, a + b + c + d + e + f * g + h + i * j + j + 2*g);
+													}catch(Exception o){
+														o.printStackTrace();
+														System.out.println(a + "," + b + "," + c + "," + d + "," + e + "," + f + "," + g + "," + h + "," + i + "," + j);
+													}
 												}
 											}
 										}
@@ -87,6 +88,8 @@ public class TestMatrix {
 													System.out.println(a + "," + b + "," + c + "," + d + "," + e + "," + f + "," + g + "," + h + "," + i + "," + j);
 												}
 												
+												
+												
 												long pos = m.getLinearId(position);
 												position2 = m.getPosition(pos);
 												
@@ -95,6 +98,7 @@ public class TestMatrix {
 														position2[8] != i || position2[9] != j){
 													System.out.println("ERROR");
 												}
+												
 											}
 										}
 									}
@@ -105,6 +109,20 @@ public class TestMatrix {
 				}
 			}
 		}
+		
+		System.out.println("teste");
+		
+		Integer bla; int counter = 0, counter2 = 0;;
+		while ((bla = m.getNext()) != null){
+			position2 = m.getPosition(counter);
+			
+			if (m.get(position2).equals(bla)) counter2++;
+			
+			counter++;
+		}
+		System.out.println(counter + "~~" + counter2);
+		
+		System.out.println(m.getNumOfDimensions());
 		
 		/*
 		//change here to what matrix you want

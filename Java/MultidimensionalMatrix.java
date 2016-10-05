@@ -43,7 +43,7 @@ public class MultidimensionalMatrix <T>{
 	}
 	
 	/**
-	 * Internal function that converts the coordinate dimensions into a linear index.
+	 * Internal function that converts the coordinate dimensions into a unique linear index.
 	 * @param position
 	 * @return
 	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
@@ -58,6 +58,15 @@ public class MultidimensionalMatrix <T>{
 		return id;
 	}
 	
+	/**
+	 * Returns the number of dimensions of the matrix.
+	 * @return - the number of dimensions
+	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
+	 */
+	public int getNumOfDimensions(){
+		return this.sizes.length;
+	}
+	
 	
 	/**
 	 * Given a linear index, this function returns the corresponding n dimensional position.
@@ -65,19 +74,36 @@ public class MultidimensionalMatrix <T>{
 	 * @return - the corresponding n dimensional position
 	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
 	 */
-	public long[] getPosition(long linearIndex){
-		long[] position = new long[sizes.length];
+	public int[] getPosition(long linearIndex){
+		int[] position = new int[sizes.length];
 		long pSize = 0;
 		for (int k=sizes.length - 1; k>0; k--){
 			pSize = 1;
 			for (int l=0; l<k; l++){
 				pSize *= sizes[l];
 			}
-			position[k] = linearIndex / (pSize);
+			position[k] = (int) (linearIndex / (pSize));
 			linearIndex -= (position[k] * pSize);
 		}
-		position[0] = linearIndex % sizes[0];
+		position[0] = (int) (linearIndex % sizes[0]);
 		return position;
+	}
+	
+	private long nIndex = 0;
+	/**
+	 * Returns the next object of the matrix. Synchronous method. When finished the function returns null.
+	 * @return - the next object
+	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
+	 */
+	public synchronized T getNext(){
+		if (nIndex == this.getSize()) {
+			nIndex = 0;
+			return null;
+		}
+		else{
+			nIndex++;
+			return this.matrix.get(nIndex - 1);
+		}
 	}
 	
 	/**

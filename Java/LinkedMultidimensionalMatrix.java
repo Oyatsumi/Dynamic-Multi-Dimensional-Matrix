@@ -39,8 +39,19 @@ public class LinkedMultidimensionalMatrix <T> {
 		}
 		current.object = object;
 	}
+	
+	public int getNumOfDimensions(){
+		int dimensions = 0;
+		LinkedMultidimensionalMatrix<T> aux = this;
+		while (aux.matrix.size() != 0){
+			dimensions++;
+		}
+		return dimensions + 1;
+	}
+	
 
 	
+
 	/**
 	 * This function returns the value at the given position.
 	 * That is, assuming we are working with 3D matrices, then we instantiate an array position of size 3.
@@ -64,6 +75,7 @@ public class LinkedMultidimensionalMatrix <T> {
 		return current.object;
 	}
 	
+
 	/**
 	 * Returns the total linear size of the matrix.
 	 * @return
