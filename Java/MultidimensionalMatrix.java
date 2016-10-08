@@ -126,7 +126,7 @@ public class MultidimensionalMatrix <T>{
 	 * @return
 	 * @author Érick Oliveira Rodrigues (erickr@id.uff.br)
 	 */
-	public Object get(final int[] position){
+	public T get(final int[] position){
 		return matrix.get(getLinearId(position));
 	}
 	
